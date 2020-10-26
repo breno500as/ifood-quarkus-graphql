@@ -1,6 +1,7 @@
 package com.quarkus.ifood.graphql.api;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,7 +25,17 @@ public class PratoAPI {
         prato.setNome("feijao");
         prato.setDescricao("prato tipico de algum lugar");
         prato.setValor(BigDecimal.TEN);
-        List<Prato> lista = Collections.singletonList(prato);
+        
+        
+        Prato prato2 = new Prato();
+        prato2.setNome("arroz");
+        prato2.setDescricao("prato arroz");
+        prato2.setValor(BigDecimal.TEN);
+        
+        
+        List<Prato> lista = new ArrayList<>();
+        lista.add(prato);
+        lista.add(prato2);
         return lista;
     }
 
@@ -41,6 +52,9 @@ public class PratoAPI {
 
     @Name("restaurante")
     public Restaurante buscarRestaurante(@Source Prato prato) {
+    	if ("arroz".equals(prato.getNome())) {
+    		return null;
+    	}
         Restaurante restaurante = new Restaurante();
         restaurante.setDono("João");
         restaurante.setNome("Manguai");
